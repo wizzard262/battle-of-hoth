@@ -1,0 +1,64 @@
+﻿<html>
+	<head>
+		<title>Battle of Hoth</title>
+
+		<script src="assets/phaser.min.js"></script>
+		<script src="assets/phaser-plugin-isometric.min.js"></script>
+		<script src="assets/hoth.js"></script>
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="keywords" content="battleofhoth.com, battle of hoth, Lego, 3866, Star Wars, HTML5 game, board game, pahser game, lego game"/>
+        <meta name="description" content="battleofhoth.com, battle of hoth, Lego, 3866, Star Wars, HTML5 game, board game, pahser game, lego game" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<link rel="shortcut icon" href="http://www.battleofhoth.com/assets/ico.ico">
+		<meta name="viewport" content="user-scalable=0, initial-scale=1, minimum-scale=1, maximum-scale=1, width=device-width, minimal-ui=1">
+		<link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png">
+		<style type="text/css">
+			body {
+				margin: 0px 0px 1px 0px; /* the extra 1px allows the iOS inner/outer check to work */
+				background: #666666;
+				font-family: Arial;
+				font-size: 30px;
+				color: #15155E;
+			}
+
+			#loader {
+				background: #FFFFFF;
+			}
+			.layer {
+				width: 100%;
+				height: 100%;
+				position: absolute;
+				top: 0;
+				left: 0;
+				text-align: center;
+			}
+            .loader {
+                width: 29px;
+                position: relative;
+                top: 2px;
+            }
+            .hothset {
+                max-height:50%;
+                max-width:100%;
+            }
+		</style>
+	</head>
+	<body>
+		<div id="loader" class="layer">
+			<h3>BATTLE OF H<img src="assets/images/loading.gif" class="loader" alt="battle of hoth"/>TH</h3>
+            <img src="assets/images/3866.jpg" alt="battle of hoth Lego 3866 Star Wars" class="hothset" />
+		</div>
+	</body>
+
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	  ga('create', 'UA-58196207-1', 'auto');
+	  ga('send', 'pageview');
+
+	</script>
+
+</html>
