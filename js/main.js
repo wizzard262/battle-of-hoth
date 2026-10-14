@@ -96,6 +96,9 @@ BasicGame.Boot.prototype = {
 		UI.empireBadge_1 = game.add.sprite(game.world.width - 220, 20, 'hothSprites', 'empire_badge');
 		UI.empireBadge_2 = game.add.sprite(game.world.width - 120, 100, 'hothSprites', 'empire_badge');
 
+		LoadRobotSettings();
+		DrawRobotLabels();
+
 		UI.fireAnimation = game.add.sprite(-300, -300, 'fireSprites');
 		UI.fireAnimation.animations.add('flames');
 

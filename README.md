@@ -1,6 +1,6 @@
 # Battle of Hoth – browser game code
 
-A two-player board game based on the Lego Star Wars 3866 Battle of Hoth set, built with Phaser 2 and its isometric plugin. Plain JavaScript, no build step: `index.html` loads the libraries from `assets/` and then the game files from `js/` in order.
+A two-player board game (either side, or both, can be played by the computer) based on the Lego Star Wars 3866 Battle of Hoth set, built with Phaser 2 and its isometric plugin. Plain JavaScript, no build step: `index.html` loads the libraries from `assets/` and then the game files from `js/` in order.
 
 ## Game (`js/`, in load order)
 
@@ -11,9 +11,10 @@ A two-player board game based on the Lego Star Wars 3866 Battle of Hoth set, bui
 | `state.js` | Game state: `tiles` (the board), `turnStatus`, the sprite groups, and the `Sounds`, `UI` and `Settings` objects |
 | `board.js` | Setting up a map, drawing the board and pieces, and the rules for moving and shooting |
 | `play.js` | Playing a turn: selecting, moving, shooting, damage, whose turn it is, victory |
+| `bot.js` | The robot player: looks ahead over its goes this turn, scores each board (pieces left, danger to its base, damage the enemy can do next), and plays its choice through the same functions as a tap |
 | `effects.js` | Shots, wrecks, force attacks, fly-overs, the turn badges, the info window and texts |
 | `ambient.js` | Background fly-overs and sounds, and the snow |
-| `menu.js` | The control-panel menu and the instructions |
+| `menu.js` | The control-panel menu (including the player / robot row for each side) and the instructions |
 | `main.js` | The Phaser game: `preload`, `create`, `update` |
 
 ## The board

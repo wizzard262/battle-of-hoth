@@ -67,11 +67,14 @@ var UI = {
 	starfieldHeart1: undefined,
 
 	snowEmitter: null,
+	robotLabels: {},        // 'robot' under the badges of a side the computer plays
 	menu: undefined,
+	robotMenuRow: null,     // the menu's robot players row (see menu.js)
 	instructions: undefined
 };
 
 var Settings = {
 	snowToggle: true,
-	showInstructionScreen: false
+	showInstructionScreen: false,
+	robot: { rebel: false, empire: false }  // which sides the computer plays (see bot.js)
 };

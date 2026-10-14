@@ -70,21 +70,23 @@ function InitPiece(x, y) {
 	sprite.yy = y;
 
 	if (tiles[x][y].piece.faction == turnStatus.currentTurnFaction) {
-		sprite.inputEnabled = true;
-		sprite.input.useHandCursor = true;
+		if (!IsRobot(turnStatus.currentTurnFaction)) {
+			sprite.inputEnabled = true;
+			sprite.input.useHandCursor = true;
 
-		//=== EVENT (select piece)
-		sprite.events.onInputDown.add(function (sprite) {
-			game.iso.unproject(game.input.activePointer.position, cursorPos);
+			//=== EVENT (select piece)
+			sprite.events.onInputDown.add(function (sprite) {
+				game.iso.unproject(game.input.activePointer.position, cursorPos);
 
-			if (sprite.isoBounds.containsXY(cursorPos.x, cursorPos.y)) {
-				SelectPiece(sprite);
-			}
-			else {
-				// isometric sprites overlap: pass the tap on to the one actually under the pointer
-				RedirectSpritesOnInputDownEvent(cursorPos.x, cursorPos.y);
-			}
-		}, this);
+				if (sprite.isoBounds.containsXY(cursorPos.x, cursorPos.y)) {
+					SelectPiece(sprite);
+				}
+				else {
+					// isometric sprites overlap: pass the tap on to the one actually under the pointer
+					RedirectSpritesOnInputDownEvent(cursorPos.x, cursorPos.y);
+				}
+			}, this);
+		}
 
 		// at the start of a side's turn its pieces bounce, at random times
 		if (turnStatus.moveCounter == 0 && turnStatus.factionFlipBounce) {

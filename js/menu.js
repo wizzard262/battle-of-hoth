@@ -21,20 +21,21 @@ function InitMenu() {
 		UI.menu.scale.setTo(2, 2);
 		UI.menu.inputEnabled = true;
 		UI.menu.input.useHandCursor = true;
+		DrawRobotMenuRow();
 
 		//=== taps while paused go to the menu
 		game.input.onDown.add(MenuTapped, self);
 	}, this);
 }
 
-// Menu rows (128px each): back, instructions, snow on/off, new game, the source code
+// Menu rows (128px each): back, instructions, snow on/off, new game, the source code, robot players
 function MenuTapped(event) {
 	//=== only while the menu is up (not the instructions)
 	if (!(Settings.showInstructionScreen == false && game.paused && (typeof UI.menu != "undefined" || UI.menu != null) && (typeof UI.instructions == "undefined" || UI.instructions == null)))
 		return;
 
 	//=== outside the menu: close it
-	if (!(event.x > 0 && event.x < 512 && event.y > 0 && event.y < 640)) {
+	if (!(event.x > 0 && event.x < 512 && event.y > 0 && event.y < 768)) {
 		CloseMenu();
 		return;
 	}
@@ -47,7 +48,7 @@ function MenuTapped(event) {
 	//=== instructions
 	if (y > 128 && y <= 256) {
 		game.paused = false;
-		UI.menu.destroy();
+		DestroyMenu();
 		Settings.showInstructionScreen = true;
 		ShowInstructions();
 	}
@@ -69,11 +70,46 @@ function MenuTapped(event) {
 	if (y > 512 && y < 640) {
 		window.top.location = 'https://bitbucket.org/wizzard262/battleofhoth';
 	}
+	//=== robot players: tap a side to switch it between player and robot (the menu stays open)
+	if (y >= 640 && y < 768) {
+		var faction = (event.x < 256) ? 'rebel' : 'empire';
+		SetRobot(faction, !IsRobot(faction));
+		DrawRobotMenuRow();
+	}
 }
 
 function CloseMenu() {
-	UI.menu.destroy();
+	DestroyMenu();
 	game.paused = false;
+}
+
+function DestroyMenu() {
+	UI.menu.destroy();
+	if (UI.robotMenuRow)
+		UI.robotMenuRow.destroy(true);
+	UI.robotMenuRow = null;
+}
+
+// The last menu row, drawn to match the menu image: each side's badge, and 'player' or 'robot'
+function DrawRobotMenuRow() {
+	if (UI.robotMenuRow)
+		UI.robotMenuRow.destroy(true);
+	var row = UI.robotMenuRow = game.add.group();
+
+	var background = game.add.graphics(0, 0, row);
+	background.beginFill(0xC3C3C3);
+	background.drawRect(0, 640, 512, 128);
+	background.endFill();
+	background.beginFill(0x1E1E1E);
+	background.drawRect(0, 636, 512, 4);
+	background.drawRect(254, 652, 4, 104);
+	background.endFill();
+
+	['rebel', 'empire'].forEach(function (faction, i) {
+		var badge = game.add.sprite(16 + 256 * i, 664, 'hothSprites', faction + '_badge', row);
+		badge.scale.setTo(0.25, 0.25);
+		game.add.bitmapText(108 + 256 * i, 688, IsRobot(faction) ? 'jediFontYellow' : 'jediFontBlue', IsRobot(faction) ? 'robot' : 'player', 30, row);
+	});
 }
 
 function ShowInstructions() {

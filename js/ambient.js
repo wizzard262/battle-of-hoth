@@ -46,8 +46,9 @@ function StartSnow() {
 	UI.snowEmitter.start(false, 14000, 20);
 }
 
+// Clear the flakes but keep them (destroying them left nothing to start the snow again with)
 function StopSnow() {
-	UI.snowEmitter.removeAll(true, true);
+	UI.snowEmitter.forEachAlive(function (flake) { flake.kill(); });
 	UI.snowEmitter.kill();
 }
 

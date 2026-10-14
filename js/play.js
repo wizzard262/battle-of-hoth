@@ -22,6 +22,9 @@ function SelectPiece(sprite) {
 
 // Isometric sprites overlap: find the piece or move square actually under the pointer
 function RedirectSpritesOnInputDownEvent(xCoord, yCoord) {
+	if (IsRobot(turnStatus.currentTurnFaction))
+		return;
+
 	isoGroupPieces.forEach(function (sprite) {
 		if (sprite
 			&& sprite.isoBounds.containsXY(xCoord, yCoord)
@@ -68,8 +71,10 @@ function SetMoveIndicators(spritePiece, moves) {
 			sprite.yFrom = y;
 			sprite.piece = spritePiece;
 
-			sprite.inputEnabled = true;
-			sprite.input.useHandCursor = true;
+			if (!IsRobot(faction)) {
+				sprite.inputEnabled = true;
+				sprite.input.useHandCursor = true;
+			}
 
 			//=== EVENT (move piece)
 			sprite.events.onInputDown.add(function (sprite) {
@@ -171,8 +176,10 @@ function DrawShootableTarget(spritePiece, xFrom, yFrom, xTo, yTo, direction) {
 	spriteShootable.direction = direction;
 	spriteShootable.xFrom = xFrom;
 	spriteShootable.yFrom = yFrom;
-	spriteShootable.inputEnabled = true;
-	spriteShootable.input.useHandCursor = true;
+	if (!IsRobot(tiles[xFrom][yFrom].piece.faction)) {
+		spriteShootable.inputEnabled = true;
+		spriteShootable.input.useHandCursor = true;
+	}
 	spriteShootable.xOrigin = spritePiece.x;
 	spriteShootable.yOrigin = spritePiece.y;
 
@@ -186,20 +193,23 @@ function DrawShootableTarget(spritePiece, xFrom, yFrom, xTo, yTo, direction) {
 		else {
 			RedirectSpritesOnInputDownEvent(cursorPos.x, cursorPos.y);
 		}
-
-		//=== remove the targets straight away so it can't shoot again
-		isoGroupIndicators.destroy(true, true);
-		isoGroupHotspots.destroy(true, true);
-
-		//=== redraw after the shot lands (so the target doesn't show damage before it's hit)
-		game.time.events.add(Phaser.Timer.SECOND * 0.5, function () {
-			InitGameboard();
-		}, this);
-
-		CheckVictoryConditions(3);
+		AfterShot();
 	}, this);
 
 	return sprite;
+}
+
+function AfterShot() {
+	//=== remove the targets straight away so it can't shoot again
+	isoGroupIndicators.destroy(true, true);
+	isoGroupHotspots.destroy(true, true);
+
+	//=== redraw after the shot lands (so the target doesn't show damage before it's hit)
+	game.time.events.add(Phaser.Timer.SECOND * 0.5, function () {
+		InitGameboard();
+	}, this);
+
+	CheckVictoryConditions(3);
 }
 
 // sprite: the target tapped (xFrom/yFrom shoots xTo/yTo)
@@ -292,6 +302,9 @@ function FlipFactionTurn() {
 		turnStatus.moveCounter++;
 	}
 	AnimateFactionFlip(turnStatus.moveCounter);
+
+	//=== if the computer plays the side whose go it is now, it plays after a pause
+	RobotScheduleGo();
 }
 
 // A side wins by destroying every enemy piece, or by moving a piece onto the enemy base
