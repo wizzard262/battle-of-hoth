@@ -100,9 +100,13 @@ function AnimateForceAttack(faction) {
 
 // A hit piece throws out a minifig, which arcs left or right and fades
 function AnimateMicrofigEject(sprite) {
+	// this runs 0.4s after the hit: by then the game may have been reset, leaving the square empty
+	var piece = tiles[sprite.xTo] && tiles[sprite.xTo][sprite.yTo] && tiles[sprite.xTo][sprite.yTo].piece;
+	if (!piece) return;
+
 	var x = sprite.xDestination - isoBaseSize;
 	var y = sprite.yDestination;
-	var minifig = game.add.sprite(x, y, 'hothSprites', tiles[sprite.xTo][sprite.yTo].piece.minifig);
+	var minifig = game.add.sprite(x, y, 'hothSprites', piece.minifig);
 	var side = (Math.floor(Math.random() * 2) == 1) ? -1 : 1;
 
 	var tweenProjectile = game.add.tween(minifig);

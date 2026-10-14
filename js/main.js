@@ -23,9 +23,9 @@ var SOUND_FILES = {
 	audioWind: 'wind',
 	audioRebelWin: 'rebelWin',
 	audioEmpireWin: 'empireWin',
-	audioViperDroid: 'viperDroid',
+	audioViperDroid: 'viperdroid',     // the files are lower case (the web server is case-sensitive)
 	audioEchoBaseAmbient: 'echoBaseAmbient',
-	audioTaunTaun: 'taunTaun',
+	audioTaunTaun: 'tauntaun',
 	audioRebelForceAttack: 'xWingFlyBy',
 	audioEmpireForceAttack: 'tieFighterFlyBy',
 	audioXwingSquad: 'xWingFlyBy',
