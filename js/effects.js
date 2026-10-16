@@ -135,10 +135,10 @@ function parabolicEasing(k) {
 
 //=========================== FLY-OVERS =================================
 
-function AnimateFlyover(frame, x, y, scale, sound, xTo, yTo, duration) {
+function AnimateFlyover(frame, x, y, scale, sound, volume, xTo, yTo, duration) {
 	var sprite = game.add.sprite(x, y, 'hothSprites', frame);
 	sprite.scale.setTo(scale, scale);
-	sound.play('', 0, 0.2);
+	sound.play('', 0, volume);
 
 	var tween = game.add.tween(sprite);
 	tween.to({ x: xTo, y: yTo }, duration, Phaser.Easing.Linear.None, false);
@@ -146,17 +146,17 @@ function AnimateFlyover(frame, x, y, scale, sound, xTo, yTo, duration) {
 }
 
 function AnimateXwingSquad() {
-	AnimateFlyover('xwing_squad', 1.5 * game.world.width, 0.6 * game.world.height, 0.4, Sounds.xwingSquad,
+	AnimateFlyover('xwing_squad', 1.5 * game.world.width, 0.6 * game.world.height, 0.4, Sounds.xwingSquad, VOLUME.xwingSquad,
 		0.3 * game.world.width, -0.5 * game.world.centerY, 2000);
 }
 
 function AnimateTieFighter() {
-	AnimateFlyover('tie_fighter', 1.5 * game.world.width, 0, 0.7, Sounds.tieFighter,
+	AnimateFlyover('tie_fighter', 1.5 * game.world.width, 0, 0.7, Sounds.tieFighter, VOLUME.tieFighter,
 		0.8 * game.world.centerX, game.world.height, 2500);
 }
 
 function AnimateViperDroid() {
-	AnimateFlyover('viper_droid', -100, 0.6 * game.world.centerY, 0.4, Sounds.viperDroid,
+	AnimateFlyover('viper_droid', -100, 0.6 * game.world.centerY, 0.4, Sounds.viperDroid, VOLUME.viperDroid,
 		1.5 * game.world.centerX, 1.25 * game.world.height, 12000);
 }
 

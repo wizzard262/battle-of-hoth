@@ -49,6 +49,17 @@ var Sounds = {
 	shoot: {}               // by piece shootSound name
 };
 
+// Background volumes (0-1), set so each lands at about the loudness noted, measured on the loudest
+// 0.4s of the file. Shots and explosions play at 1 (-5 to -12 dB) and are the loudest thing.
+var VOLUME = {
+	xwingSquad: 0.7,        // -18 dB  fly-overs: clearly heard, under the shots
+	tieFighter: 0.55,       // -19 dB
+	viperDroid: 1,          // -20 dB
+	taunTaun: 0.5,          // -18 dB
+	echoBase: 0.5,          // -24 dB  ice base hum, a bed under everything
+	wind: 0.5               // -22 dB
+};
+
 // Display objects
 var UI = {
 	fireAnimation: null,
