@@ -1,5 +1,7 @@
 # Battle of Hoth – browser game code
 
+Play it at https://wizzard262.github.io/battle-of-hoth/ (GitHub Pages, published from `main` on every push). A fan game, not made or endorsed by LEGO or Lucasfilm.
+
 A two-player board game (either side, or both, can be played by the computer) based on the Lego Star Wars 3866 Battle of Hoth set, built with Phaser 2 and its isometric plugin. Plain JavaScript, no build step: `index.html` loads the libraries from `assets/` and then the game files from `js/` in order.
 
 ## Game (`js/`, in load order)
